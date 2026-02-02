@@ -17,19 +17,22 @@
         }
         .container { text-align: center; padding: 20px; z-index: 1; }
         h1 { color: #ff4d6d; font-size: 2rem; margin-bottom: 20px; }
+        
+        /* Исправление отображения картинки */
         #cat-img { 
             width: 250px; 
             height: 250px;
-            object-fit: cover;
+            object-fit: contain;
             border-radius: 20px; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
+
         .buttons { 
             margin-top: 30px; 
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 20px;
+            height: 100px;
         }
         
         button {
@@ -38,28 +41,32 @@
             border: none;
             border-radius: 12px;
             cursor: pointer;
-            transition: transform 0.2s ease; /* Плавное увеличение */
             font-weight: bold;
+            transition: transform 0.2s ease;
         }
+
         #yesBtn { 
             background-color: #ff4d6d; 
             color: white; 
-            z-index: 10; /* Всегда сверху */
+            position: relative;
+            z-index: 100;
         }
+
         #noBtn {
             background-color: #888;
             color: white;
             position: absolute;
-            transition: 0.1s ease; /* Скорость убегания */
+            z-index: 50;
+            transition: 0.1s;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp6eXN6bmZ0bmZ0bmZ0&ep=v1_gifs_search&rid=giphy.gif&ct=g" id="cat-img" alt="Cute animation">
+        <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmo3bmZueXp6Z3ZueXp6Z3ZueXp6Z3ZueXp6Z3ZueXp6Z3ZueSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KztT2c4u8mYYUiMKdJ/giphy.gif" id="cat-img" alt="Cute animation">
         <h1>Nichi, will you be my Valentine?</h1>
-        <div class="buttons">
+        <div class="buttons" id="btnContainer">
             <button id="yesBtn">Yes</button>
             <button id="noBtn">No</button>
         </div>
@@ -68,27 +75,31 @@
     <script>
         const noBtn = document.getElementById('noBtn');
         const yesBtn = document.getElementById('yesBtn');
-        let yesSize = 1; // Начальный масштаб кнопки Yes
+        let scale = 1;
 
-        noBtn.addEventListener('mouseover', () => {
-            // Ограничиваем область перемещения кнопки No (в пределах 300px от центра)
+        // Кнопка No убегает
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('touchstart', moveButton); // Для телефонов
+
+        function moveButton() {
             const maxX = window.innerWidth - noBtn.offsetWidth;
             const maxY = window.innerHeight - noBtn.offsetHeight;
             
             const randomX = Math.random() * maxX;
             const randomY = Math.random() * maxY;
 
-            noBtn.style.left = `${randomX}px`;
-            noBtn.style.top = `${randomY}px`;
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
 
-            // Увеличиваем кнопку Yes
-            yesSize += 0.2; // Прибавляем 20% к размеру каждый раз
-            yesBtn.style.transform = `scale(${yesSize})`;
-        });
+            // Кнопка Yes становится больше
+            scale += 0.15;
+            yesBtn.style.transform = `scale(${scale})`;
+        }
 
+        // Кнопка Yes - финал
         yesBtn.addEventListener('click', () => {
             document.querySelector('.container').innerHTML = `
-                <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3OHdzc2xvanFlMm81ZjZydGY3bjZtaHMxYjhoaXFnd3JicWwyODBhZCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/AAmXHAfy3WT6iTjDy6/giphy.gif" id="cat-img">
+                <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3R6Z3ZueXp6Z3ZueXp6Z3ZueXp6Z3ZueXp6Z3ZueXp6ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif" id="cat-img">
                 <h1 style="margin-top: 20px;">Yaay! 143! ❤️</h1>
             `;
         });
