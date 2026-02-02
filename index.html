@@ -28,8 +28,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
-            height: 100px;
+            gap: 40px; /* Расстояние между кнопками */
+            height: 150px;
+            position: relative;
         }
         button {
             padding: 15px 35px;
@@ -40,13 +41,17 @@
             font-weight: bold;
             transition: transform 0.2s ease;
         }
-        #yesBtn { background-color: #ff4d6d; color: white; position: relative; z-index: 100; }
+        #yesBtn { 
+            background-color: #ff4d6d; 
+            color: white; 
+            position: relative; 
+            z-index: 100; 
+        }
         #noBtn {
             background-color: #888;
             color: white;
-            position: absolute;
+            position: relative; /* Сначала кнопка стоит на месте */
             z-index: 50;
-            transition: 0.1s;
         }
     </style>
 </head>
@@ -65,22 +70,34 @@
         const noBtn = document.getElementById('noBtn');
         const yesBtn = document.getElementById('yesBtn');
         let scale = 1;
+        let isMoving = false;
 
         function moveButton() {
+            // Как только навели первый раз, меняем тип позиционирования на absolute
+            if (!isMoving) {
+                noBtn.style.position = 'absolute';
+                isMoving = true;
+            }
+
             const maxX = window.innerWidth - noBtn.offsetWidth;
             const maxY = window.innerHeight - noBtn.offsetHeight;
+            
             const randomX = Math.random() * maxX;
             const randomY = Math.random() * maxY;
 
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
 
+            // Увеличиваем кнопку Yes
             scale += 0.2;
             yesBtn.style.transform = `scale(${scale})`;
         }
 
         noBtn.addEventListener('mouseover', moveButton);
-        noBtn.addEventListener('touchstart', moveButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Чтобы на телефоне не срабатывал клик
+            moveButton();
+        });
 
         yesBtn.addEventListener('click', () => {
             document.querySelector('.container').innerHTML = `
