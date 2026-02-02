@@ -15,31 +15,42 @@
             font-family: 'Arial', sans-serif;
             overflow: hidden;
         }
-        .container { text-align: center; padding: 20px; }
-        h1 { color: #ff4d6d; font-size: 2rem; }
+        .container { text-align: center; padding: 20px; z-index: 1; }
+        h1 { color: #ff4d6d; font-size: 2rem; margin-bottom: 20px; }
         #cat-img { 
-            width: 280px; 
-            height: 280px;
+            width: 250px; 
+            height: 250px;
             object-fit: cover;
             border-radius: 20px; 
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
-        .buttons { margin-top: 30px; position: relative; min-height: 150px; }
+        .buttons { 
+            margin-top: 30px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        
         button {
             padding: 15px 35px;
             font-size: 1.2rem;
             border: none;
             border-radius: 12px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: transform 0.2s ease; /* Плавное увеличение */
             font-weight: bold;
         }
-        #yesBtn { background-color: #ff4d6d; color: white; }
+        #yesBtn { 
+            background-color: #ff4d6d; 
+            color: white; 
+            z-index: 10; /* Всегда сверху */
+        }
         #noBtn {
             background-color: #888;
             color: white;
             position: absolute;
-            left: 55%;
+            transition: 0.1s ease; /* Скорость убегания */
         }
     </style>
 </head>
@@ -57,18 +68,28 @@
     <script>
         const noBtn = document.getElementById('noBtn');
         const yesBtn = document.getElementById('yesBtn');
+        let yesSize = 1; // Начальный масштаб кнопки Yes
 
         noBtn.addEventListener('mouseover', () => {
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-            noBtn.style.left = `${x}px`;
-            noBtn.style.top = `${y}px`;
+            // Ограничиваем область перемещения кнопки No (в пределах 300px от центра)
+            const maxX = window.innerWidth - noBtn.offsetWidth;
+            const maxY = window.innerHeight - noBtn.offsetHeight;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+
+            noBtn.style.left = `${randomX}px`;
+            noBtn.style.top = `${randomY}px`;
+
+            // Увеличиваем кнопку Yes
+            yesSize += 0.2; // Прибавляем 20% к размеру каждый раз
+            yesBtn.style.transform = `scale(${yesSize})`;
         });
 
         yesBtn.addEventListener('click', () => {
             document.querySelector('.container').innerHTML = `
                 <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3OHdzc2xvanFlMm81ZjZydGY3bjZtaHMxYjhoaXFnd3JicWwyODBhZCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/AAmXHAfy3WT6iTjDy6/giphy.gif" id="cat-img">
-                <h1>Yaay! 143! ❤️</h1>
+                <h1 style="margin-top: 20px;">Yaay! 143! ❤️</h1>
             `;
         });
     </script>
