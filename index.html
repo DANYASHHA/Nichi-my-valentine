@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ro">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Для тебя!</title>
+    <title>Pentru Nichi ❤️</title>
     <style>
-        /* Сюда мы пишем CSS (стили) */
         body {
             background-color: #ffeef2;
             display: flex;
@@ -16,57 +15,75 @@
             font-family: 'Arial', sans-serif;
             overflow: hidden;
         }
-        .container { text-align: center; }
-        h1 { color: #ff4d6d; }
-        #cat-img { width: 250px; border-radius: 20px; }
-        .buttons { margin-top: 20px; position: relative; height: 100px; }
+        .container { 
+            text-align: center; 
+            padding: 20px;
+        }
+        h1 { 
+            color: #ff4d6d; 
+            font-size: 2rem;
+        }
+        #cat-img { 
+            width: 280px; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .buttons { 
+            margin-top: 30px; 
+            position: relative; 
+            height: 150px; 
+        }
         
         button {
-            padding: 15px 30px;
+            padding: 15px 35px;
             font-size: 1.2rem;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: 0.2s;
+            transition: 0.3s;
+            font-weight: bold;
         }
-        #yesBtn { background-color: #ff4d6d; color: white; }
+        #yesBtn { 
+            background-color: #ff4d6d; 
+            color: white; 
+        }
         #noBtn {
             background-color: #888;
             color: white;
-            position: absolute; /* Позволяет кнопке летать */
+            position: absolute; /* Это нужно для того, чтобы кнопка убегала */
+            left: 55%; /* Начальная позиция */
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp6eXN6bmZ0bmZ0bmZ0&ep=v1_gifs_search&rid=giphy.gif&ct=g" id="cat-img" alt="Милый кот">
-        <h1> Nichita, will you be my Valentine? ❤️</h1>
+        <img src="https://tenor.com/u8pZzqfacXe.gif" id="cat-img" alt="Cute animation">
+        <h1>Nichi, will you be my Valentine?</h1>
         <div class="buttons">
-            <button id="yesBtn">Yes!</button>
+            <button id="yesBtn">Yes</button>
             <button id="noBtn">No</button>
         </div>
     </div>
 
     <script>
-        /* Сюда мы пишем JavaScript (логику) */
         const noBtn = document.getElementById('noBtn');
         const yesBtn = document.getElementById('yesBtn');
 
-        // Кнопка убегает при наведении
+        // Логика убегающей кнопки
         noBtn.addEventListener('mouseover', () => {
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
             
-            noBtn.style.left = x + 'px';
-            noBtn.style.top = y + 'px';
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
         });
 
-        // Кнопка "Да"
+        // Что происходит при нажатии "Yes"
         yesBtn.addEventListener('click', () => {
             document.querySelector('.container').innerHTML = `
-                <img src="https://media.giphy.com/media/UMon0FO7RnLiU/giphy.gif" id="cat-img">
-                <h1>YAAY! 143! 🎉</h1>
+                <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3OHdzc2xvanFlMm81ZjZydGY3bjZtaHMxYjhoaXFnd3JicWwyODBhZCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/AAmXHAfy3WT6iTjDy6/giphy.gif" id="cat-img">
+                <h1>Yaay! 143! ❤️</h1>
             `;
         });
     </script>
