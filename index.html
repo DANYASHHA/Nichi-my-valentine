@@ -17,15 +17,12 @@
         }
         .container { text-align: center; padding: 20px; z-index: 1; }
         h1 { color: #ff4d6d; font-size: 2rem; margin-bottom: 20px; }
-        
-        /* Исправление отображения картинки */
         #cat-img { 
             width: 250px; 
             height: 250px;
-            object-fit: contain;
+            object-fit: cover;
             border-radius: 20px; 
         }
-
         .buttons { 
             margin-top: 30px; 
             display: flex;
@@ -34,7 +31,6 @@
             gap: 20px;
             height: 100px;
         }
-        
         button {
             padding: 15px 35px;
             font-size: 1.2rem;
@@ -44,14 +40,7 @@
             font-weight: bold;
             transition: transform 0.2s ease;
         }
-
-        #yesBtn { 
-            background-color: #ff4d6d; 
-            color: white; 
-            position: relative;
-            z-index: 100;
-        }
-
+        #yesBtn { background-color: #ff4d6d; color: white; position: relative; z-index: 100; }
         #noBtn {
             background-color: #888;
             color: white;
@@ -64,9 +53,9 @@
 <body>
 
     <div class="container">
-        <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmo3bmZueXp6Z3ZueXp6Z3ZueXp6Z3ZueXp6Z3ZueXp6Z3ZueSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KztT2c4u8mYYUiMKdJ/giphy.gif" id="cat-img" alt="Cute animation">
+        <img src="cat1.gif" id="cat-img" alt="Cute animation">
         <h1>Nichi, will you be my Valentine?</h1>
-        <div class="buttons" id="btnContainer">
+        <div class="buttons">
             <button id="yesBtn">Yes</button>
             <button id="noBtn">No</button>
         </div>
@@ -77,29 +66,25 @@
         const yesBtn = document.getElementById('yesBtn');
         let scale = 1;
 
-        // Кнопка No убегает
-        noBtn.addEventListener('mouseover', moveButton);
-        noBtn.addEventListener('touchstart', moveButton); // Для телефонов
-
         function moveButton() {
             const maxX = window.innerWidth - noBtn.offsetWidth;
             const maxY = window.innerHeight - noBtn.offsetHeight;
-            
             const randomX = Math.random() * maxX;
             const randomY = Math.random() * maxY;
 
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
 
-            // Кнопка Yes становится больше
-            scale += 0.15;
+            scale += 0.2;
             yesBtn.style.transform = `scale(${scale})`;
         }
 
-        // Кнопка Yes - финал
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('touchstart', moveButton);
+
         yesBtn.addEventListener('click', () => {
             document.querySelector('.container').innerHTML = `
-                <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3R6Z3ZueXp6Z3ZueXp6Z3ZueXp6Z3ZueXp6Z3ZueXp6ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif" id="cat-img">
+                <img src="cat2.gif" id="cat-img">
                 <h1 style="margin-top: 20px;">Yaay! 143! ❤️</h1>
             `;
         });
